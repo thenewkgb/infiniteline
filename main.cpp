@@ -17,7 +17,6 @@ int get(std::vector<int> vtr, int x)
     return result;
 }
 
-// add on top of previous square
 void put(int result, std::vector<int> &vtr, int x)
 {
     vtr[x] = result;
