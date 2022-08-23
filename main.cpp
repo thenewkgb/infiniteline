@@ -17,6 +17,7 @@ int get(std::vector<int> vtr, int x)
     return result;
 }
 
+// add on top of previous square
 void put(int result, std::vector<int> &vtr, int x)
 {
     vtr[x] = result;
@@ -101,6 +102,69 @@ void addup(std::vector<std::vector<int>> &arr, int column)
     return;
 }
 
+void calcDiagonals(std::vector<std::vector<int>> &arr, int a, int b, int i)
+{
+    if(i > 0)
+    {
+        int first = get(arr, a, b);
+        int second = get(arr, a-1, b-1);
+        //std::cout << first << "," << second << "\n";
+        int ans = sum(second, first);
+        int t = total(second, ans);
+        put(t, arr, a-2, b-2);
+        calcDiagonals(arr, a-1, b-1, i-1);
+    }
+   // std::cout << "\n";
+    return;
+}
+
+void diagonalBottom(std::vector<std::vector<int>> &arr)
+{
+    // include longest diagonal
+    // top right, bottom left
+    int size = arr.size();
+    int sum2 = size - 2 -1;
+    
+    for(int i = 0; i < sum2; ++i)
+    {
+        // - 1 for vector[0]
+        int a = size - 1 - sum2 + i;
+        // -1 for vector[0]
+        int b = arr[0].size() - 1;
+        int first = get(arr, a, b);
+        int second = get(arr, a-1, b-1);
+        //std::cout << first << "," << second << ".";
+        int ans = sum(second, first);
+        int t = total(second, ans);
+        put(t, arr, a-2, b-2);
+        calcDiagonals(arr, a-1, b-1, i);
+    }
+    
+    // longest diagonal
+    calcDiagonals(arr, 7, 7, 6);
+}
+
+void diagonalTop(std::vector<std::vector<int>> &arr)
+{
+    int size = arr.size();
+    int sum2 = size - 2 - 1;
+    
+    for(int i = 0; i < sum2; ++i)
+    {
+        // - 1 for vector[0]
+        int b = size - 1 - sum2 + i;
+        // -1 for vector[0]
+        int a = arr[0].size() - 1;
+        int first = get(arr, a, b);
+        int second = get(arr, a-1, b-1);
+        //std::cout << first << "," << second << ".";
+        int ans = sum(second, first);
+        int t = total(second, ans);
+        put(t, arr, a-2, b-2);
+        calcDiagonals(arr, a-1, b-1, i);
+    }
+}
+
 void printline(const std::vector<int> &vtr)
 {
     for (int element : vtr)
@@ -123,6 +187,7 @@ int main(int argc, char *argv[])
     // good numbers
     // 0 4 2 8
     // 0 4 8 10
+    // 9 10 6 7 - circle?
     std::cout << "Enter four sensible figures with spaces inbetween them: ";
     int w {0};
     int x {0};
@@ -141,9 +206,6 @@ int main(int argc, char *argv[])
          {0, 0, 0, 0, 0, 0, 0, 0},
          {0, 0, 0, 0, 0, 0, 0, 0}};
 
-    // todo
-    // make a user input vector
-    // std::vector<std::vector<int>> arr2 = arr;
 
     // first pass
     addright(arr[3]);
@@ -170,4 +232,12 @@ int main(int argc, char *argv[])
     addleft(arr[7]);
 
     printgrid(arr);
+    
+    // diagonal vector results
+    std::vector<std::vector<int>> arr2 = arr;
+    // calculate next step
+    diagonalBottom(arr2);
+    diagonalTop(arr2);
+    std::cout << "==========" << "\n";
+    printgrid(arr2);
 }
