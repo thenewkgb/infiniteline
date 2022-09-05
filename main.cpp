@@ -1,18 +1,12 @@
 //
 // command line - infinite line
 //
+// PC version
 //
+// removed depreciated functions
 
 #include <iostream>
 #include <vector>
-
-// depreciated
-/*
-int get(std::vector<std::vector<int>> &arr, int x, int y)
-{
-    return arr[y][x];
-}
-*/
 
 int get(std::vector<int> vtr, int x)
 {
@@ -26,15 +20,6 @@ void put(int result, std::vector<int> &vtr, int x)
     vtr[x] = result;
     return;
 }
-
-// depreciated
-/*
-void put(int result, std::vector<std::vector<int>> &arr, int x, int y)
-{
-    arr[y][x] = result;
-    return;
-}
-*/
 
 int sum(int a, int b)
 {
@@ -77,24 +62,6 @@ void addleft(std::vector<int> &vtr)
     return;
 }
 
-// must not take 2D array
-/*
-void adddown(std::vector<std::vector<int>> &arr, int column)
-{
-    int coord1 = arr.size()/2;
-    
-    for(int j = coord1; j < arr.size()-1; ++j)
-    {
-        int first = get(arr, column, j);
-        int second = get(arr, column, j-1);
-        int ans = sum(first, second);
-        int t = total(first, ans);
-        put(t, arr, column, j+1);
-    }
-    return;
-}
-*/
-
 void addDown(std::vector<int> &a, std::vector<int> &b, std::vector<int> &c, int column)
 {
     int first = get(a, column);
@@ -103,25 +70,6 @@ void addDown(std::vector<int> &a, std::vector<int> &b, std::vector<int> &c, int 
     int t = total(first, ans);
     put(t, c, column);
 }
-
-// must not take 2D array
-/*
-void addup(std::vector<std::vector<int>> &arr, int column)
-{
-    int coord0 = arr.size()/2 - 1;
-    
-    for(int j = coord0 ; j > 0; --j)
-    {
-        int first = get(arr, column, j);
-        int second = get(arr, column, j+1);
-        int ans = sum(first, second);
-        int t = total(first, ans);
-        put(t, arr, column, j-1);
-    }
-    
-    return;
-}
-*/
 
 void addUp(std::vector<int> &a, std::vector<int> &b, std::vector<int> &c, int column)
 {
@@ -132,104 +80,9 @@ void addUp(std::vector<int> &a, std::vector<int> &b, std::vector<int> &c, int co
     put(t, c, column);
 }
 
-// must not take 2D array
-/*
-void calcDiagonals(std::vector<std::vector<int>> &arr, int a, int b, int i)
-{
-    // recursion
-    if(i > 0)
-    {
-        int first = get(arr, a, b);
-        int second = get(arr, a-1, b-1);
-        //std::cout << first << "," << second << "\n";
-        int ans = sum(second, first);
-        int t = total(second, ans);
-        put(t, arr, a-1, b-1);
-        calcDiagonals(arr, a-1, b-1, i-1);
-    }
-}
-*/
-
-// must not take 2D array
-/*
- void diagonalBottom(std::vector<std::vector<int>> &arr)
-{
-    // 
-    int size = arr.size();
-    int sum2 = size - 2 - 1;
-    
-    for(int i = 0; i < sum2; ++i)
-    {
-        // - 1 as vectors start at 0
-        int a = size - 1 - sum2 + i;
-        int b = arr[0].size() - 1;
-        
-        int first = get(arr, a, b);
-        int second = get(arr, a-1, b-1);
-        std::cout << first << "," << second << ".";
-        int ans = sum(second, first);
-        int t = total(second, ans);
-        put(t, arr, a-2, b-2);
-        //calcDiagonals(arr, a-1, b-1, i);
-    }
-    
-    // longest diagonal
-    //calcDiagonals(arr, 7, 7, 6);
-}
-*/
-
-// must not take 2D array
-/*
-void diagonalTop(std::vector<std::vector<int>> &arr)
-{
-    int size = arr.size();
-    int sum2 = size - 2 - 1;
-    
-    for(int i = 0; i < sum2; ++i)
-    {
-        // - 1 for vector[0]
-        int b = size - 1 - sum2 + i;
-        // -1 for vector[0]
-        int a = arr[0].size() - 1;
-        int first = get(arr, a, b);
-        int second = get(arr, a-1, b-1);
-        //std::cout << first << "," << second << ".";
-        int ans = sum(second, first);
-        int t = total(second, ans);
-        put(t, arr, a-2, b-2);
-        calcDiagonals(arr, a-1, b-1, i);
-    }
-}
-*/
-
-/*
-void initGridHorz(std::vector<std::vector<int>> &arr)
-{
-    // first pass
-    addright(arr[3]);
-    addright(arr[4]);;
-    addleft(arr[3]);
-    addleft(arr[4]);
-    adddown(arr, 3);
-    adddown(arr, 4);
-    addup(arr, 3);
-    addup(arr, 4);
-    
-    // second pass
-    addright(arr[0]);
-    addright(arr[1]);
-    addright(arr[2]);
-    addleft(arr[0]);
-    addleft(arr[1]);
-    addleft(arr[2]);
-    addright(arr[5]);
-    addright(arr[6]);
-    addright(arr[7]);
-    addleft(arr[5]);
-    addleft(arr[6]);
-    addleft(arr[7]);
-}
-*/
+//
+// find the differences between each cell
+//
 void addUpLeft(std::vector<int> &a, std::vector<int> &b, std::vector<int> &c, int column)
 {
     int first = get(a, column - 1);
@@ -245,9 +98,9 @@ void addDownRight(std::vector<int> &a, std::vector<int> &b, std::vector<int> &c,
     int first = get(a, column + 1);
     int second = get(b, column);
     int ans = sum(first, second);
-    int t = total(first, ans);
-    put(t, c, column + 2);
-    //std::cout << first << "," << second << "\n";
+    //int t = total(first, ans);
+    put(ans, c, column + 2);
+    std::cout << first << "," << second << "=" << ans << "\n";
 }
 
 // initial steps to complete grid
@@ -350,22 +203,28 @@ void diagonalStepOne(std::vector<std::vector<int>> &arrOriginal, std::vector<std
     addUpLeft(arrOriginal[1], arrOriginal[2], arrNew[0], 7);
 }
 
-void diagonalStepTwo(std::vector<std::vector<int>> &arr)
+void diagonalStepTwo(std::vector<std::vector<int>> &arrOriginal, std::vector<std::vector<int>> &arrNew)
 {
-    // colum 5
-    addDownRight(arr[1], arr[0], arr[2], 5);
+    // column 5
+    addDownRight(arrOriginal[1], arrOriginal[0], arrNew[2], 5);
     // column 4
-    addDownRight(arr[1], arr[0], arr[2], 4);
-    addDownRight(arr[2], arr[1], arr[3], 5);
+    addDownRight(arrOriginal[1], arrOriginal[0], arrNew[2], 4);
+    addDownRight(arrOriginal[2], arrOriginal[1], arrNew[3], 5);
     // column 3
-    addDownRight(arr[1], arr[0], arr[2], 3);
-    addDownRight(arr[2], arr[1], arr[3], 4);
-    addDownRight(arr[3], arr[2], arr[4], 5);
+    addDownRight(arrOriginal[1], arrOriginal[0], arrNew[2], 3);
+    addDownRight(arrOriginal[2], arrOriginal[1], arrNew[3], 4);
+    addDownRight(arrOriginal[3], arrOriginal[2], arrNew[4], 5);
     //column 2
-    addDownRight(arr[1], arr[0], arr[2], 2);
-    addDownRight(arr[2], arr[1], arr[3], 3);
-    addDownRight(arr[3], arr[2], arr[4], 4);
-    addDownRight(arr[4], arr[3], arr[5], 5);
+    addDownRight(arrOriginal[1], arrOriginal[0], arrNew[2], 2);
+    addDownRight(arrOriginal[2], arrOriginal[1], arrNew[3], 3);
+    addDownRight(arrOriginal[3], arrOriginal[2], arrNew[4], 4);
+    addDownRight(arrOriginal[4], arrOriginal[3], arrNew[5], 5);
+    // column 1
+    addDownRight(arrOriginal[1], arrOriginal[0], arrNew[2], 1);
+    addDownRight(arrOriginal[2], arrOriginal[1], arrNew[3], 2);
+    addDownRight(arrOriginal[3], arrOriginal[2], arrNew[4], 3);
+    addDownRight(arrOriginal[4], arrOriginal[3], arrNew[5], 4);
+    addDownRight(arrOriginal[5], arrOriginal[4], arrNew[6], 5);
 }
 
 void printline(const std::vector<int> &vtr)
@@ -439,4 +298,6 @@ int main(int argc, char *argv[])
 
     std::cout << "========= second pass ====="
               << "\n";
+    diagonalStepTwo(arr, arrDiagDownRight);
+    printgrid(arrDiagDownRight);
 }
