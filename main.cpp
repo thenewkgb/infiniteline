@@ -182,6 +182,33 @@ void printgrid(const std::vector<std::vector<int>> &arr)
     }
 }
 
+void initGridHorz(std::vector<std::vector<int>> &arr)
+{
+    // first pass
+    addright(arr[3]);
+    addright(arr[4]);;
+    addleft(arr[3]);
+    addleft(arr[4]);
+    adddown(arr, 3);
+    adddown(arr, 4);
+    addup(arr, 3);
+    addup(arr, 4);
+
+    // second pass
+    addright(arr[0]);
+    addright(arr[1]);
+    addright(arr[2]);
+    addleft(arr[0]);
+    addleft(arr[1]);
+    addleft(arr[2]);
+    addright(arr[5]);
+    addright(arr[6]);
+    addright(arr[7]);
+    addleft(arr[5]);
+    addleft(arr[6]);
+    addleft(arr[7]);
+}
+
 int main(int argc, char *argv[])
 {
     // good numbers
@@ -206,38 +233,22 @@ int main(int argc, char *argv[])
          {0, 0, 0, 0, 0, 0, 0, 0},
          {0, 0, 0, 0, 0, 0, 0, 0}};
 
-
-    // first pass
-    addright(arr[3]);
-    addright(arr[4]);;
-    addleft(arr[3]);
-    addleft(arr[4]);
-    adddown(arr, 3);
-    adddown(arr, 4);
-    addup(arr, 3);
-    addup(arr, 4);
-    
-    // second pass
-    addright(arr[0]);
-    addright(arr[1]);
-    addright(arr[2]);
-    addleft(arr[0]);
-    addleft(arr[1]);
-    addleft(arr[2]);
-    addright(arr[5]);
-    addright(arr[6]);
-    addright(arr[7]);
-    addleft(arr[5]);
-    addleft(arr[6]);
-    addleft(arr[7]);
-
+    // fill the grid to begin with
+    initGridHorz(arr);
     printgrid(arr);
-    
-    // diagonal vector results
+
     std::vector<std::vector<int>> arr2 = arr;
-    // calculate next step
+
+    std::cout << "==========" << "\n";
     diagonalBottom(arr2);
     diagonalTop(arr2);
-    std::cout << "==========" << "\n";
     printgrid(arr2);
+
+    std::vector<std::vector<int>> arr3 = arr2;
+    std::cout << "==========" << "\n";
+
+    initGridHorz(arr3);
+    //diagonalBottom(arr3);
+    //diagonalTop(arr3);
+    printgrid(arr3);
 }
