@@ -81,7 +81,7 @@ void addUp(std::vector<int> &a, std::vector<int> &b, std::vector<int> &c, int co
 }
 
 //
-// find the differences between each cell
+// diagonally
 //
 void addUpLeft(std::vector<int> &a, std::vector<int> &b, std::vector<int> &c, int column)
 {
@@ -113,7 +113,17 @@ void addUpRight(std::vector<int> &a, std::vector<int> &b, std::vector<int> &c, i
     std::cout << first << "," << second << "=" << ans << "\n";
 }
 
-// initial steps to complete grid
+void addDownLeft(std::vector<int> &a, std::vector<int> &b, std::vector<int> &c, int column)
+{
+    int first = get(a, column - 1);
+    int second = get(b, column);
+    int ans = sum(first, second);
+    int t = total(first, ans);
+    //std::cout << first << "," << second;
+    put(t, c, column - 2);
+}
+
+// initial steps to complete first grid
 void addStepOne(std::vector<std::vector<int>> &arr)
 {
     addright(arr[3]);
@@ -158,7 +168,7 @@ void addStepThree(std::vector<std::vector<int>> &arr)
     addleft(arr[7]);
 }
 
-//  don't alter values as this calculates each
+// don't alter values as this calculates each
 // cell in a particular order
 void diagonalStepOne(std::vector<std::vector<int>> &arrOriginal, std::vector<std::vector<int>> &arrNew)
 {
@@ -264,8 +274,104 @@ void diagonalStepTwo(std::vector<std::vector<int>> &arrOriginal, std::vector<std
 
 void diagonalStepThree(std::vector<std::vector<int>> &arrOriginal, std::vector<std::vector<int>> &arrNew)
 {
-    // column 1
+    // row 1
     addUpRight(arrOriginal[1], arrOriginal[2], arrNew[0], 0);
+    // row 2
+    addUpRight(arrOriginal[2], arrOriginal[3], arrNew[1], 0);
+    addUpRight(arrOriginal[1], arrOriginal[2], arrNew[0], 1);
+    // row 3
+    addUpRight(arrOriginal[3], arrOriginal[4], arrNew[2], 0);
+    addUpRight(arrOriginal[2], arrOriginal[3], arrNew[1], 1);
+    addUpRight(arrOriginal[1], arrOriginal[2], arrNew[0], 2);
+    // row 4
+    addUpRight(arrOriginal[4], arrOriginal[5], arrNew[3], 0);
+    addUpRight(arrOriginal[3], arrOriginal[4], arrNew[2], 1);
+    addUpRight(arrOriginal[2], arrOriginal[3], arrNew[1], 2);
+    addUpRight(arrOriginal[1], arrOriginal[2], arrNew[0], 3);
+    // row 5
+    addUpRight(arrOriginal[5], arrOriginal[6], arrNew[4], 0);
+    addUpRight(arrOriginal[4], arrOriginal[5], arrNew[3], 1);
+    addUpRight(arrOriginal[3], arrOriginal[4], arrNew[2], 2);
+    addUpRight(arrOriginal[2], arrOriginal[3], arrNew[1], 3);
+    addUpRight(arrOriginal[1], arrOriginal[2], arrNew[0], 4);
+    // row 6
+    addUpRight(arrOriginal[6], arrOriginal[7], arrNew[5], 0);
+    addUpRight(arrOriginal[5], arrOriginal[6], arrNew[4], 1);
+    addUpRight(arrOriginal[4], arrOriginal[5], arrNew[3], 2);
+    addUpRight(arrOriginal[3], arrOriginal[4], arrNew[2], 3);
+    addUpRight(arrOriginal[2], arrOriginal[3], arrNew[1], 4);
+    addUpRight(arrOriginal[1], arrOriginal[2], arrNew[0], 5);
+    // traverse right
+    addUpRight(arrOriginal[6], arrOriginal[7], arrNew[5], 1);
+    addUpRight(arrOriginal[5], arrOriginal[6], arrNew[4], 2);
+    addUpRight(arrOriginal[4], arrOriginal[5], arrNew[3], 3);
+    addUpRight(arrOriginal[3], arrOriginal[4], arrNew[2], 4);
+    addUpRight(arrOriginal[2], arrOriginal[3], arrNew[1], 5);
+    // traverse right
+    addUpRight(arrOriginal[6], arrOriginal[7], arrNew[5], 2);
+    addUpRight(arrOriginal[5], arrOriginal[6], arrNew[4], 3);
+    addUpRight(arrOriginal[4], arrOriginal[5], arrNew[3], 4);
+    addUpRight(arrOriginal[3], arrOriginal[4], arrNew[2], 5);
+    // traverse right
+    addUpRight(arrOriginal[6], arrOriginal[7], arrNew[5], 3);
+    addUpRight(arrOriginal[5], arrOriginal[6], arrNew[4], 4);
+    addUpRight(arrOriginal[4], arrOriginal[5], arrNew[3], 5);
+    // traverse right
+    addUpRight(arrOriginal[6], arrOriginal[7], arrNew[5], 4);
+    addUpRight(arrOriginal[5], arrOriginal[6], arrNew[4], 5);
+    // traverse right
+    addUpRight(arrOriginal[6], arrOriginal[7], arrNew[5], 5);
+}
+
+void diagonalStepFour(std::vector<std::vector<int>> &arrOriginal, std::vector<std::vector<int>> &arrNew)
+{
+    // row 2
+    addDownLeft(arrOriginal[1], arrOriginal[0], arrNew[2], 2);
+    // row 3
+    addDownLeft(arrOriginal[1], arrOriginal[0], arrNew[2], 3);
+    addDownLeft(arrOriginal[2], arrOriginal[1], arrNew[3], 2);
+    // row 4
+    addDownLeft(arrOriginal[1], arrOriginal[0], arrNew[2], 4);
+    addDownLeft(arrOriginal[2], arrOriginal[1], arrNew[3], 3);
+    addDownLeft(arrOriginal[3], arrOriginal[2], arrNew[4], 2);
+    // row 5
+    addDownLeft(arrOriginal[1], arrOriginal[0], arrNew[2], 5);
+    addDownLeft(arrOriginal[2], arrOriginal[1], arrNew[3], 4);
+    addDownLeft(arrOriginal[3], arrOriginal[2], arrNew[4], 3);
+    addDownLeft(arrOriginal[4], arrOriginal[3], arrNew[5], 2);
+    // row 6
+    addDownLeft(arrOriginal[1], arrOriginal[0], arrNew[2], 6);
+    addDownLeft(arrOriginal[2], arrOriginal[1], arrNew[3], 5);
+    addDownLeft(arrOriginal[3], arrOriginal[2], arrNew[4], 4);
+    addDownLeft(arrOriginal[4], arrOriginal[3], arrNew[5], 3);
+    addDownLeft(arrOriginal[5], arrOriginal[4], arrNew[6], 2);
+    // row 7
+    addDownLeft(arrOriginal[1], arrOriginal[0], arrNew[2], 7);
+    addDownLeft(arrOriginal[2], arrOriginal[1], arrNew[3], 6);
+    addDownLeft(arrOriginal[3], arrOriginal[2], arrNew[4], 5);
+    addDownLeft(arrOriginal[4], arrOriginal[3], arrNew[5], 4);
+    addDownLeft(arrOriginal[5], arrOriginal[4], arrNew[6], 3);
+    addDownLeft(arrOriginal[6], arrOriginal[5], arrNew[7], 2);
+    // traverse down
+    addDownLeft(arrOriginal[2], arrOriginal[1], arrNew[3], 7);
+    addDownLeft(arrOriginal[3], arrOriginal[2], arrNew[4], 6);
+    addDownLeft(arrOriginal[4], arrOriginal[3], arrNew[5], 5);
+    addDownLeft(arrOriginal[5], arrOriginal[4], arrNew[6], 4);
+    addDownLeft(arrOriginal[6], arrOriginal[5], arrNew[7], 3);
+    // traverse down
+    addDownLeft(arrOriginal[3], arrOriginal[2], arrNew[4], 7);
+    addDownLeft(arrOriginal[4], arrOriginal[3], arrNew[5], 6);
+    addDownLeft(arrOriginal[5], arrOriginal[4], arrNew[6], 5);
+    addDownLeft(arrOriginal[6], arrOriginal[5], arrNew[7], 4);
+    // traverse down
+    addDownLeft(arrOriginal[4], arrOriginal[3], arrNew[5], 7);
+    addDownLeft(arrOriginal[5], arrOriginal[4], arrNew[6], 6);
+    addDownLeft(arrOriginal[6], arrOriginal[5], arrNew[7], 5);
+    // traverse down
+    addDownLeft(arrOriginal[5], arrOriginal[4], arrNew[6], 7);
+    addDownLeft(arrOriginal[6], arrOriginal[5], arrNew[7], 6);
+    // traverse down
+    addDownLeft(arrOriginal[6], arrOriginal[5], arrNew[7], 7);
 }
 
 void printline(const std::vector<int> &vtr)
@@ -291,13 +397,13 @@ int main(int argc, char *argv[])
     // 0 4 2 8
     // 0 4 8 10
     // 9 10 6 7 - circle?
-    std::cout << "Enter four sensible figures with spaces inbetween them: ";
+    //std::cout << "Enter four sensible figures with spaces inbetween them: ";
     int w{0};
-    int x{0};
-    int y{0};
-    int z{0};
+    int x{3};
+    int y{5};
+    int z{7};
 
-    std::cin >> w >> x >> y >> z;
+    //std::cin >> w >> x >> y >> z;
 
     std::vector<std::vector<int>> arr =
         {{0, 0, 0, 0, 0, 0, 0, 0},
@@ -319,7 +425,7 @@ int main(int argc, char *argv[])
          {0, 0, 0, 0, 0, 0, 0, 0},
          {0, 0, 0, 0, 0, 0, 0, 0}};
 
-    // make copies for multidirection
+    // make copies for multidirectional
     std::vector<std::vector<int>> arrDiagDownRight = arrDiagUpLeft;
     std::vector<std::vector<int>> arrDiagUpRight = arrDiagUpLeft;
     std::vector<std::vector<int>> arrDiagDownLeft = arrDiagUpLeft;
@@ -336,13 +442,20 @@ int main(int argc, char *argv[])
 
     diagonalStepOne(arr, arrDiagUpLeft);
     printgrid(arrDiagUpLeft);
-
+    
+    
     std::cout << "========= second pass ====="
               << "\n";
     diagonalStepTwo(arr, arrDiagDownRight);
     printgrid(arrDiagDownRight);
     
+    
     std::cout << "========= third pass =======" << "\n";
     diagonalStepThree(arr, arrDiagUpRight);
     printgrid(arrDiagUpRight);
+    
+    
+    std::cout << "========== forth pass =======" << "\n";
+    diagonalStepFour(arr, arrDiagDownLeft);
+    printgrid(arrDiagDownLeft);
 }
