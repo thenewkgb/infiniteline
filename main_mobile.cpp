@@ -20,7 +20,6 @@ int get(std::vector<int> vtr, int x)
     return result;
 }
 
-// add on top of previous square
 void put(int result, std::vector<int> &vtr, int x)
 {
     vtr[x] = result;
@@ -33,13 +32,6 @@ void putDivideFour(int sum, std::vector<std::vector<int>> &arr, int x, int y)
 {
     arr[x][y] = sum/ 4;
 }
-
-/*
-void putDivideTwo(int sum, std::vector<std::vector<int>> &arr, int x, int y)
-{
-    arr[x][y] = sum/2;
-}
-*/
 
 //
 // sums
@@ -743,10 +735,6 @@ void printgrid(const std::vector<std::vector<int>> &arr)
 
 int main(int argc, char *argv[])
 {
-    // good numbers
-    // 0 4 2 8
-    // 0 4 8 10
-    // 9 10 6 7 - circle?
     std::cout << "Enter four sensible figures with spaces inbetween them: ";
     int w{0};
     int x{3};
@@ -832,9 +820,6 @@ int main(int argc, char *argv[])
         arrDiagUpRight,
         arrDiagDownLeft,
         arrDiagFinal);
-        
-    // print diagonal averages
-    //printgrid(arrDiagFinal);
 
     // do we need arrReady
     // to receive new input each time?
@@ -847,22 +832,13 @@ int main(int argc, char *argv[])
     addStepTwo(arrDiagFinal, arrAddedLeft);
     addStepThree(arrDiagFinal, arrAddedUp);
     addStepFour(arrDiagFinal, arrAddedDown);
+    
     // take all four added and average them
     addingAverage(arrAddedLeft, arrAddedRight, arrAddedUp, arrAddedDown, arrAddedAvg);
     
-    std::cout << "===== addright =====" << std::endl;
-    printgrid(arrAddedRight);
-    std::cout << "===== added left =====" << std::endl;
-    printgrid(arrAddedLeft);
-    std::cout << "===== added up =====" << std::endl;
-    printgrid(arrAddedUp);
-    std::cout << "===== added down =====" << std::endl;
-    printgrid(arrAddedDown);
-    std::cout << "===== averages =====" << std::endl;
-    printgrid(arrAddedAvg);
     //
     // now we have our new array
     // which will be ready
-    // for diagonal addition
+    // for diagonal addition again
     //
 }
